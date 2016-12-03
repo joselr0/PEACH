@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="bgGreen">#bfff80</color>
+    <color name="bgDeSatGreen">#d9f4be</color>
+    <color name="bgDarkGreen">#8CC653</color>
+    <color name="bgDarkGreenLite">#b3d98c</color>
+    <color name="bgDarkerGreen">#669933</color>
+    <color name="bgSoftPeachy">#ffddc4</color>
+    <color name="peachy">#ffbb99</color>
+    <color name="peachy02">#ffaa80</color>
+    <color name="peachy03">#ff884d</color>
+</resources>

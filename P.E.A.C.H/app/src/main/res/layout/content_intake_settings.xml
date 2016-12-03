@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="mobileappchallenge.peach.IntakeSettingsActivity"
+    tools:showIn="@layout/activity_intake_settings"
+    android:background="@color/bgDarkGreen">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:text="Set Your Intakes"
+        android:id="@+id/textView48"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calories (Generated Automatically):"
+        android:id="@+id/textView49"
+        android:textSize="15dp"
+        android:layout_below="@+id/textView48"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXX"
+        android:id="@+id/textView50"
+        android:layout_alignTop="@+id/textView49"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="40dp"
+        android:textSize="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Carbohydrates:"
+        android:id="@+id/textView51"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/textView49"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Ecarb"
+        android:inputType="phone"
+        android:text="275"
+        android:imeOptions="actionNext"
+        android:layout_alignTop="@+id/textView51"
+        android:layout_alignEnd="@+id/textView50"
+        android:layout_toEndOf="@+id/textView49" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Efat"
+        android:text="67"
+        android:inputType="phone"
+        android:layout_below="@+id/Ecarb"
+        android:layout_alignEnd="@+id/textView50"
+        android:layout_alignStart="@+id/Ecarb" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fat:"
+        android:id="@+id/textView52"
+        android:layout_below="@+id/Ecarb"
+        android:layout_alignEnd="@+id/textView53" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Protein:"
+        android:inputType="phone"
+        android:id="@+id/textView53"
+        android:layout_below="@+id/Efat"
+        android:layout_alignEnd="@+id/textView51" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Eprotein"
+        android:text="55"
+        android:inputType="phone"
+        android:layout_alignTop="@+id/textView53"
+        android:layout_alignEnd="@+id/Efat"
+        android:layout_alignStart="@+id/Efat" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sodium:"
+        android:id="@+id/textView54"
+        android:layout_below="@+id/Eprotein"
+        android:layout_alignStart="@+id/textView53" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Esodium"
+        android:text="1900"
+        android:inputType="phone"
+        android:layout_alignTop="@+id/textView54"
+        android:layout_alignEnd="@+id/Eprotein"
+        android:layout_alignStart="@+id/Eprotein" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fiber:"
+        android:id="@+id/textView55"
+        android:layout_below="@+id/Esodium"
+        android:layout_alignEnd="@+id/textView53" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Efiber"
+        android:inputType="phone"
+        android:text="32"
+        android:layout_alignTop="@+id/textView55"
+        android:layout_alignEnd="@+id/Esodium"
+        android:layout_alignStart="@+id/Esodium" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/savebutton"
+        android:layout_below="@+id/Efiber"
+        android:layout_alignParentStart="true"
+        android:background="@color/bgDarkGreenLite"/>
+
+</RelativeLayout>

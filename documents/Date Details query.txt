@@ -1,0 +1,6 @@
+SELECT image, name, cooktime, calories
+FROM Schedule, Recipes
+WHERE userID LIKE "sample_user" AND date LIKE "2016-04-13"
+-- modify the above per user and date
+AND Recipes.id=recipeID
+ORDER BY meal;

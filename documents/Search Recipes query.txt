@@ -1,0 +1,16 @@
+-- BASIC VERSION (swap out 'soup' for whatever input user searches by)
+SELECT id, name, calories, cooktime, servings, image
+FROM Recipes
+WHERE name LIKE '%soup%' OR similarTo LIKE '%soup%'
+ORDER BY (name) ASC; -- feel free to order by something else
+
+-- ADVANCED VERSION (include in string only whichever chunks user has filled in)
+SELECT id, name, calories, cooktime, servings, image
+FROM Recipes
+WHERE 
+-- calories<NUM AND
+-- carbs<NUM2 AND
+-- ... sodium, fat, protein, fiber
+cooktime<30 AND
+similarTo LIKE '%vegetarian%'
+ORDER BY (name) ASC; -- feel free to order by something else

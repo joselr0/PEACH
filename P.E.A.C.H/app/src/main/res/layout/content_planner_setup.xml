@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="mobileappchallenge.peach.PlannerSetupActivity"
+    tools:showIn="@layout/activity_planner_setup">
+
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Generate Schedule"
+        android:id="@+id/button9"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/textView25"
+        android:layout_alignParentStart="true"
+        android:background="@color/bgDarkGreenLite"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Sunday"
+        android:layout_alignParentStart="true"
+        android:checked="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Monday"
+        android:checked="false"
+        android:layout_toEndOf="@+id/Sunday" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Tuesday"
+        android:checked="false"
+        android:layout_toEndOf="@+id/Monday" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Wednesday"
+        android:checked="false"
+        android:layout_alignBottom="@+id/Tuesday"
+        android:layout_toEndOf="@+id/Tuesday" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Thursday"
+        android:checked="false"
+        android:layout_toEndOf="@+id/Wednesday" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Friday"
+        android:checked="false"
+        android:layout_toEndOf="@+id/Thursday" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Saturday"
+        android:checked="false"
+        android:layout_toEndOf="@+id/Friday" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Sun"
+        android:id="@+id/SundayTxt"
+        android:layout_below="@+id/Sunday"
+        android:layout_centerHorizontal="@+id/Sunday"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mon"
+        android:id="@+id/MondayTxt"
+        android:layout_below="@+id/Monday"
+        android:layout_alignStart="@+id/Monday" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Tue"
+        android:id="@+id/textView20"
+        android:layout_below="@+id/Monday"
+        android:layout_toEndOf="@+id/Monday" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wed"
+        android:id="@+id/textView21"
+        android:layout_below="@+id/Wednesday"
+        android:layout_toEndOf="@+id/Tuesday" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Thu"
+        android:id="@+id/textView22"
+        android:layout_below="@+id/Wednesday"
+        android:layout_toEndOf="@+id/Wednesday" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Fri"
+        android:id="@+id/textView23"
+        android:layout_below="@+id/Friday"
+        android:layout_toEndOf="@+id/Thursday" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Sat"
+        android:id="@+id/textView24"
+        android:layout_below="@+id/Friday"
+        android:layout_toEndOf="@+id/Friday" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Week(s)"
+        android:id="@+id/textView25"
+        android:layout_marginTop="41dp"
+        android:layout_below="@+id/textView21"
+        android:layout_alignStart="@+id/textView21" />
+
+    <Spinner
+        android:layout_width="75dp"
+        android:layout_height="20dp"
+        android:id="@+id/weekspn"
+        android:entries="@array/weekNumber"
+        android:layout_alignBottom="@+id/textView25"
+        android:layout_toStartOf="@+id/textView25" />
+
+
+</RelativeLayout>

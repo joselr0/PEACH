@@ -1,0 +1,16 @@
+//DAILY TRACKER COMPARE (for calendar)
+SELECT date, (calTarget-calCount) as calsRemaining, (carbTarget-carbCount) as carbsRemaining, 
+(sodiumTarget-sodiumCount) as sodiumRemaining, (fiberTarget-fiberCount) as fiberRemaining,
+(fatTarget-fatCount) as fatRemaining, (proteinTarget-proteinCount) as proteinRemaining
+FROM DailyTracker, Profiles
+WHERE userID=id AND id LIKE "sample_user"
+ORDER BY date;
+
+
+// DAILY TRACKER INSERT
+INSERT INTO DailyTracker
+SELECT userID, date, SUM(calories), SUM(carbs), SUM(sodium), SUM(fiber), SUM(fat), SUM(protein)
+FROM Schedule, Recipes
+WHERE userID LIKE "sample_user" AND recipeID=Recipes.id AND date NOT IN (SELECT date FROM DailyTracker)
+-- probably substitute date equals today's date
+GROUP BY date;

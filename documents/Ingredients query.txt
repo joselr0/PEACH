@@ -1,0 +1,9 @@
+-- SELECTS AND STACKS INGREDIENTS FOR NEXT TWO WEEKS
+-- IF WE DECIDE TO IMPLEMENT A "CHOOSE HOW MANY DAYS" THING ALL THAT NEEDS TO BE CHANGED IS THE "+14 days"
+SELECT Ingredients.name, SUM(Ingredients.amount) as totalAmount, Ingredients.mUnit
+FROM Ingredients
+WHERE Ingredients.id IN (SELECT recipeID FROM Schedule
+WHERE userID="sample_user"
+AND date>=date('now', 'localtime') AND date<date('now', '+14 days'))
+GROUP BY name, mUnit
+HAVING totalAmount<>'';

@@ -1,0 +1,81 @@
+-- THIS GOES BEFORE ALL OTHER QUERIES
+CREATE TABLE temp (r1 INTEGER, r2 INTEGER, r3 INTEGER, r4 INTEGER, r5 INTEGER, r6 INTEGER);
+
+-- ASSUME 1 SERVING PER RECIPE FOR BREAKFAST, 2 SERVINGS PER RECIPE FOR LUNCH AND DINNER
+-- THIS IS THE GIANT 8-SEC QUERY AND SHOULD ONLY RUN ONCE EACH TIME YOU RUN SCHEDULE SETUP, NOT ONCE PER DAY
+INSERT INTO temp
+SELECT r1id, r2id, r3id, r4id, r5id, r6id
+FROM (SELECT R1.id as r1id, R2.id as r2id, R3.id as r3id, R4.id as r4id, R5.id as r5id, R6.id as r6id, 
+(R1.calories + R2.calories) + 2*(R3.calories + R4.calories + R5.calories + R6.calories) as calTotal,
+(R1.carbs + R2.carbs) + 2*(R3.carbs + R4.carbs + R5.carbs + R6.carbs) as carbTotal,
+(R1.sodium + R2.sodium) + 2*(R3.sodium + R4.sodium + R5.sodium + R6.sodium) as sodTotal,
+(R1.fat + R2.fat) + 2*(R3.fat + R4.fat + R5.fat + R6.fat) as fatTotal,
+(R1.protein + R2.protein) + 2*(R3.protein + R4.protein + R5.protein + R6.protein) as protTotal,
+(R1.fiber + R2.fiber) + 2*(R3.fiber + R4.fiber + R5.fiber + R6.fiber) as fibTotal
+FROM Recipes as R1, Recipes as R2, Recipes as R3, Recipes as R4, Recipes as R5, Recipes as R6, Profiles
+WHERE R1.similarTo like '%breakfast%' AND R2.similarTo like '%breakfast%' AND
+R3.similarTo like '%lunch%' AND R4.similarTo like '%lunch%' AND
+R5.similarTo like '%dinner%' AND R6.similarTo like '%dinner%'
+AND Profiles.id like "sample_user"    -- just say which user profile you're interested in and it'll auto-collect data
+AND calTotal>(Profiles.calTarget-100)-300 AND calTotal<(Profiles.calTarget+100)-300    -- here 300 is the snack allowance
+AND carbTotal>(Profiles.carbTarget*0.8) AND carbTotal<(Profiles.carbTarget*1.2)
+AND sodTotal>(Profiles.sodiumTarget*0.8) AND sodTotal<(Profiles.sodiumTarget*1.2)
+AND protTotal>(Profiles.proteinTarget*0.9) AND protTotal<(Profiles.proteinTarget*1.5) -- this is because the prot we have is actually minimum recommended
+AND fatTotal>(Profiles.fatTarget*0.8) AND fatTotal<(Profiles.fatTarget*1.15)
+AND fibTotal>(Profiles.fiberTarget*0.8) AND fibTotal<(Profiles.fiberTarget*1.2)
+-- AND additional conditions like vegetarian-only
+AND r1id!=r2id AND r1id!=r3id AND r1id!=r4id AND r1id!=r5id AND r1id!=r6id
+AND r2id!=r3id AND r2id!=r4id AND r2id!=r5id AND r2id!=r6id
+AND r3id!=r4id AND r3id!=r5id AND r3id!=r6id
+AND r4id!=r5id AND r4id!=r6id
+AND r5id!=r6id) FitsConditions;
+
+- THIS IS THE ONE THAT RUNS ONCE PER DAY
+-- MAKE SURE TO REPLACE ALL DATES THEREIN WITH DATE YOU ARE SCHEDULING FOR
+-- THIS IS WHAT WILL BE RETURNED FOR YOU TO CHOOSE RANDOMLY FROM IN JAVA - STORE THIS IN ARRAYS
+-- THERE ARE 6 COLUMNS, EACH IS A RECIPE ID
+SELECT *
+FROM temp
+WHERE 
+( 
+(SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=1) IS NULL
+OR 
+( (SELECT COUNT(recipeID) FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=1) = 1 
+AND ( r1 IN (SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=1) OR 
+r2 IN (SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=1) ) ) 
+OR 
+( (SELECT COUNT(recipeID) FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=1) = 2 
+AND r1 IN (SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=1)
+aND r2 IN (SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=1) )
+) AND (
+(SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=2) IS NULL
+OR 
+( (SELECT COUNT(recipeID) FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=2) = 1 
+AND ( r3 IN (SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=2) OR 
+r4 IN (SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=2) ) ) 
+OR 
+( (SELECT COUNT(recipeID) FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=2) = 2 
+AND r3 IN (SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=2)
+aND r4 IN (SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=2) )
+) AND (
+(SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=3) IS NULL
+OR 
+( (SELECT COUNT(recipeID) FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=3) = 1 
+AND ( r5 IN (SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=3) OR 
+r6 IN (SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=3) ) ) 
+OR 
+( (SELECT COUNT(recipeID) FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=3) = 2 
+AND r5 IN (SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=3)
+aND r6 IN (SELECT recipeID FROM Schedule WHERE userID="sample_user" AND date="2016-04-12" AND meal=3) )
+);
+
+--STORE WHICHEVER RANDOM THING YOU CHOOSE LOCALLY IN APP, THEN
+-- (AGAIN, INSERT OWN DATE)
+DELETE FROM Schedule WHERE date="DATE_SCHEDULING_FOR";
+
+--THEN, FROM LOCAL STORAGE, THERE SHOULD BE 6 INSERT QUERIES INTO SCHEDULER ALONG THE VEINS OF
+INSERT INTO Schedule VALUES ("USER_ID", RECIPE_ID_FROM_LOCAL_STORAGE, "DATE_SCHEDULING_FOR", MEAL);
+-- MEAL IS A NUMBER 1-3, 1=BREAKFAST, 2=LUNCH, 3=DINNER
+
+-- ONCE YOU ARE ENTIRELY DONE WITH EVERY SINGLE DAY TO BE SCHEDULED
+DROP TABLE temp;

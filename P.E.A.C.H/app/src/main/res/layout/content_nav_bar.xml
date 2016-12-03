@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/bgDarkGreen"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="mobileappchallenge.peach.HomeActivity"
+
+    android:weightSum="1"
+
+    android:fitsSystemWindows="true"
+    tools:showIn="@layout/app_bar_nav_bar">
+
+    <Button
+        android:layout_width="175dp"
+        android:layout_height="180dp"
+        android:background="@color/peachy"
+        android:textSize="30sp"
+        android:typeface="sans"
+        android:text="Consumed Calories \n 0"
+        android:id="@+id/consumedCal"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/targetCal" />
+
+    <Button
+        android:layout_width="175dp"
+        android:layout_height="180dp"
+        android:background="@color/peachy02"
+        android:textSize="30sp"
+        android:typeface="sans"
+        android:text="Targeted Calories \n 0"
+        android:id="@+id/targetCal"
+        android:layout_gravity="right|top"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_above="@+id/nextMeal"
+        android:layout_alignEnd="@+id/nextMeal"
+        android:layout_alignParentTop="true"
+        android:nestedScrollingEnabled="false" />
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@color/peachy03"
+        android:textAllCaps="false"
+        android:id="@+id/nextMeal"
+        android:layout_gravity="right|bottom"
+        android:layout_below="@+id/consumedCal"
+        android:layout_centerHorizontal="true"
+
+        android:scaleType="fitXY"
+        android:clickable="true" />
+
+    <ImageButton
+        android:layout_width="175dp"
+        android:layout_height="180dp"
+        android:background="@color/peachy02"
+        android:textAllCaps="false"
+        android:text="4 Button"
+        android:id="@+id/randomRecipe"
+        android:layout_marginLeft="0dp"
+        android:layout_below="@+id/nextMeal"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/plannerSetup"
+        android:scaleType="fitXY"
+        android:clickable="true" />
+
+    <Button
+        android:layout_width="175dp"
+        android:layout_height="180dp"
+        android:background="@color/peachy"
+        android:textAllCaps="false"
+        android:textSize="30sp"
+        android:typeface="sans"
+        android:text="Go to Planner Setup"
+        android:id="@+id/plannerSetup"
+        android:layout_alignTop="@+id/randomRecipe"
+        android:layout_alignEnd="@+id/nextMeal"
+        android:layout_alignBottom="@+id/randomRecipe"
+        android:clickable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today's Meals"
+        android:id="@+id/textView26"
+        android:textSize="50sp"
+        android:typeface="sans"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

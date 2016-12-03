@@ -1,0 +1,69 @@
+Triggers/queries to do:
+- startup query: if today's Schedule and DailyTracker entries do not exist, create them (recipes should have recipeId 000000)
+
+
+TABLES
+=============================================================================================
+Bookmarks
+(holds bookmarks info for each user. queries that list bookmarks will refer to this and Recipes for more in-depth info)
+(uniqueness: must be unique combo of recipeID and profileID)
+	recipeID - int, foreign key to Recipes.id
+	profileID - int, foreign key to Profiles.id
+
+DailyTracker
+(holds info for user's daily calorie/nutrient intake, and archives old counts for calendar. Nutrients Activity will probably refer to this and Profiles table)
+(uniqueness: must be unique combo of userId, and date)
+	userID - int, foreign key to Profiles.id
+	date - date
+	calCount - int, count of calories
+	carbCount - int, count in grams
+	sodiumCount - int, count in milligrams
+	fiberCount - int, count in grams
+	fatCount - int, count in grams
+	proteinCount - int, count in grams
+
+Ingredients
+(holds ingredients data for each recipe)
+(uniqueness: must be unique combo of name and id)
+	name - varchar, name of recipe. when used in ShoppingList Activity, grouped by this
+	id - int, ID of recipe this ingredient is part of. foreign key to Recipes.ID
+	amount - double, holds amount of ingredient necessary as per mUnit
+	mUnit - varchar, measuring unit by which 'amount' is measured. ingredients with same name should use same mUnit
+
+Profiles
+(holds profile information, attaching target cal/nutrient intake to a profile id)
+(uniqueness: must be unique id)
+	id - int. primary key
+	calTarget - int, count of calories
+	carbTarget - int, count in grams
+	sodiumTarget - int, count in milligrams
+	fiberTarget - int, count in grams
+	fatTarget - int, count in grams
+	proteinTarget - int, count in grams
+	breakfastTime - time, holds average breakfast time
+	lunchTime - time, holds average lunch time
+	dinnerTime - time, holds average dinner time
+
+Recipes
+(holds detailed recipe info. recipe searches by string should search both 'name' and 'similarTo' with an OR clause)
+(uniqueness: must be unique id)
+	id - int. primary key
+	name - varchar, recipe name
+	calories - int, count of calories
+	carbs - int, count in grams
+	sodium - int, count in milligrams
+	fiber - int, count in grams
+	fat - int, count in grams
+	protein - int, count in grams
+	cooktime - int, in minutes
+	similarTo - long varchar. lists what recipes is similar to, ie, a flatbread recipe would have a string that includes 'pizza'
+	instructions - long varchar, listing instructions (with breaks '\n' or '<br>' or etc, depending on how we decide to display text)
+	image - varchar, url of an image
+
+Schedule
+(holds info for user's daily and archived meals.) 
+(uniqueness: must be unique combo of userId, date, and meal)
+	userId - int, foreign key to Profiles.id
+	recipeID - int, foreign key to Recipes.id. holds 000000 if user edited meal and replaced recipe with custom input
+	date - date
+	meal - varchar, options: breakfast, lunch, dinner
